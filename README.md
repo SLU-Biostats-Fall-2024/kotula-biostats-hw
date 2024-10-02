@@ -1,1 +1,0 @@
-# kotula-biostats-hw

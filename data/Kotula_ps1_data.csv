@@ -1,0 +1,34 @@
+﻿date,location,start_time,end_time,conditions,trappers,trap_zone,species,total_wt_g,bag_wt_g,sq_wt_g,sex,age,pit_tag_n,ear_tag_n,fur_dye,freeze_brand
+6-Sep-10,SLU campus,14:23,15:30,"cloudy, cool",class,E,SCCA,860,,,M,Adult,,R001,RH,RH
+6-Sep-10,SLU campus,14:23,15:30,"cloudy, cool",class,F,SCCA,,,,M,Adult,,,RH,RL
+6-Sep-10,SLU campus,14:23,15:30,"cloudy, cool",class,B,SCCA,800,,,M,Adult,,R002,CR,LL
+6-Sep-10,SLU campus,14:23,15:30,"cloudy, cool",class,B,SCCA,700,,,M,Adult,,R003,LL,LM
+6-Sep-10,SLU campus,14:23,15:30,"cloudy, cool",class,B,SCCA,780,,,M,Adult,,R004,LM ,RM 
+8-Sep-10,,7:30,9:10,"cloudy, cool","Erin, Hannah, Leah, Abbie",C,SCCA,950,,,F,Adult,,L005,BM,LH
+8-Sep-10,,7:30,9:10,"cloudy, cool","Erin, Hannah, Leah, Abbie",C,SCCA,750,,,F,Adult,,L007,LH,CR
+8-Sep-10,,7:30,9:10,"cloudy, cool","Erin, Hannah, Leah, Abbie",C,SCCA,730,,,M,Adult,,,LH,LS
+8-Sep-10,,7:30,9:10,"cloudy, cool","Erin, Hannah, Leah, Abbie",C,SCCA,710,,,M,SA,,,RM,RS
+8-Sep-10,,7:30,9:10,"cloudy, cool","Erin, Hannah, Leah, Abbie",C,SCCA,780,,,F,,,,,RH
+8-Sep-10,,7:30,9:10,"cloudy, cool","Erin, Hannah, Leah, Abbie",C,SCCA,790,,,F,Adult,,L009,RH,RL
+10-Sep-10,Front of JHS,13:30,15:10,cloudy,"Andrew Slaggs, Janet Sun, Eddie Richter",C,SCCA,800,,,F,Adult,,L010,"LM, CR",RH
+10-Sep-10,Front of JHS,13:30,15:10,cloudy,"Andrew Slaggs, Janet Sun, Eddie Richter",C,SCCA,790,,,M,Adult,,R011,RH,RL
+10-Sep-10,Front of JHS,13:30,15:10,cloudy,"Andrew Slaggs, Janet Sun, Eddie Richter",C,SCCA,870,,,F,Adult,,,RL,CS
+10-Sep-10,Front of JHS,13:30,15:10,cloudy,"Andrew Slaggs, Janet Sun, Eddie Richter",C,SCCA,,,,F,Adult,,L009,RL,RH
+10-Sep-10,Front of JHS,13:30,15:10,cloudy,"Andrew Slaggs, Janet Sun, Eddie Richter",C,SCCA,710,,,M,Adult,,R012,"LH, CR","CM, RH"
+10-Sep-10,Front of JHS,13:30,15:10,cloudy,"Andrew Slaggs, Janet Sun, Eddie Richter",C,SCCA,750,,,F,Adult,,L013,CS,"CR, CM"
+1-Oct-10,SLU campus,13:30,16:00,cloudy,"Mathias, Lizzy, Amanda, FLB",A9,SCCA,,,,,,,R011,,
+1-Oct-10,SLU campus,13:30,16:00,cloudy,"Mathias, Lizzy, Amanda, FLB",A10,SCCA,760,,,F,,,L014,"LL, RL",LL
+1-Oct-10,SLU campus,13:30,16:00,cloudy,"Mathias, Lizzy, Amanda, FLB",A11,SCCA,850,,,M,,,R015,CM,"CR, RL"
+1-Oct-10,SLU campus,13:30,16:00,cloudy,"Mathias, Lizzy, Amanda, FLB",C6,SCCA,800,,,M,,,,,RM
+1-Oct-10,SLU campus,13:30,16:00,cloudy,"Mathias, Lizzy, Amanda, FLB",F3,SCCA,750,,,F,,,L016,"RH, RS","RL, RH"
+1-Oct-10,SLU campus,13:30,16:00,cloudy,"Mathias, Lizzy, Amanda, FLB",A11,SCCA,870,,,M,,,R017,"LL, LS","LL, LH"
+1-Oct-10,SLU campus,13:30,16:00,cloudy,"Mathias, Lizzy, Amanda, FLB",F5,SCCA,840,,,F,,,R018,"LM, RM","LH, CR"
+1-Oct-10,SLU campus,13:30,16:00,cloudy,"Mathias, Lizzy, Amanda, FLB",C6,SCCA,790,,,M,,,R019,"RL, RH","CR, CM"
+8-Oct-10,Campus,13:40,,partly cloudy,"Jackie D, ELB, Eddie R, Jessica M",C,SCCA,760,,,F,,C14,L16,,
+8-Oct-10,Campus,13:40,,partly cloudy,"Jackie D, ELB, Eddie R, Jessica M",C,SCCA,760,,,F,,8/B no 00,L,LK,LL
+8-Oct-10,Campus,13:40,,partly cloudy,"Jackie D, ELB, Eddie R, Jessica M",E,SCCA,820,,,M,,,R20,RM,"LH, RH"
+8-Oct-10,Campus,13:40,,partly cloudy,"Jackie D, ELB, Eddie R, Jessica M",C,SCCA,740,160,,F,,,,"CC, CH","RM, RL"
+8-Oct-10,Campus,13:40,,partly cloudy,"Jackie D, ELB, Eddie R, Jessica M",E,SCCA,760,,,F,,8/B no 00,,,
+1-Sep-11,Around JHS,9:00,11:30,clear,"Leah H, Kate A, Eddie R, Andrew S, ELB",,SCCA,850,160,690,M,1+,,R051,New tag,LL 
+1-Sep-11,Around JHS,10:00,12:30,clear,"Leah H, Kate A, Eddie R, Andrew S, ELB",Java fields,SCCA,800,160,640,F,SA,,,"CR, LS","RL, RH"
+1-Sep-11,Around JHS,11:00,13:30,clear,"Leah H, Kate A, Eddie R, Andrew S, ELB",,SCCA,920,160,760,M,Adult,,L007,LH,CR
