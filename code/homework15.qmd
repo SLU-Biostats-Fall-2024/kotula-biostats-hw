@@ -1,0 +1,117 @@
+---
+title: "homework15"
+format: html
+---
+
+This quarto document contains biostats homework 15. I worked through GSWR chapter 3 and reviewed some common DPLYR functions.
+##Set Up
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+library(dplyr)
+```
+
+##read in the compensation dataset
+```{r}
+compensation <- read.csv(here("data", "compensation.csv"))
+
+#get summary statistics
+summary(compensation)
+```
+
+##Using dplyr functions
+```{r}
+#using select
+select(compensation, Fruit)
+
+#selecting all colums except one
+select(compensation, -Root)
+
+#using slice
+slice(compensation, 2)
+
+#slice with indexing
+slice(compensation, 2:10)
+
+#slice with concatenate
+slice(compensation, c(2, 3, 10))
+  
+```
+
+##more dplyr functions in a different code chunk to avoid mega chunk
+```{r}
+#using filter and with
+with(compensation, Fruit > 80)
+
+#the data values produced by `with()` filter are sent to filter
+filter(compensation, Fruit > 80)
+
+#filter with a boolean operator
+filter(compensation, Fruit > 80 | Fruit < 20)
+```
+
+##to use the datasets made with dplyr functions, assign them to a new variable name
+```{r}
+#make a new dataset with the lowest and highest fruit producing trees
+lo_hi_fruit <- filter(compensation, Fruit > 80 | Fruit < 20) 
+
+# now look at it
+lo_hi_fruit
+```
+
+##Transforming Data
+```{r}
+#mutate() makes new varaibles
+
+#view the dataset
+head(compensation)
+
+#make a new logFruit variable
+compensation <- mutate(compensation, logFruit = log(Fruit))
+head(compensation)
+```
+
+##Sorting data
+```{r}
+#arrange orders rows by a variable
+arrange(compensation, Fruit)
+
+#usefull if you want to operate on data in a certain order
+```
+
+#summary + tips / piping
+```{r}
+#you can use two dplyr functions at the same time
+select(filter(compensation, Fruit > 80), Root)
+
+#much more efficient to use pipes
+compensation |>
+  filter(Fruit > 80) |>
+  select(Root)
+```
+
+##Summary statistics with groups of data 
+```{r}
+#use group_by() and summarise() to do summary statistics on groups of data
+
+#nesting functions (gross)
+summarise(
+group_by(compensation, Grazing),
+meanFruit = mean(Fruit))
+
+mean.fruit <- summarise( group_by(compensation, Grazing),
+meanFruit = mean(Fruit))
+
+#using piping (the better way)
+compensation |>
+  group_by(Grazing) |>
+  summarise(meanFruit = mean(Fruit))
+
+#making multiple summary statistics
+compensation |>
+  group_by(Grazing) |>
+  summarise(meanFruit = mean(Fruit),
+            sdFruit = sd(Fruit))
+```
+
