@@ -1,0 +1,23 @@
+---
+title: "hw15 feedback"
+format: html
+editor: visual
+---
+
+## Homework 15 feedback
+
+You can skip line 12 because dplyr is loaded when you call `library(tidyverse)` on line 10.
+
+Try looking at the visual version of your .qmd file. You are using headings, rather than  just more narrative text, to describe what you are doing. For example at line 7 you have ##Set Up
+
+Also, if you don't leave a space between # and the heading text, it will not render as a heading.
+
+I tweaked this on lines 15 and 23 so you could see the difference (assuming  you use the visual view).
+
+Also, I think it would benefit you to think a bit more about what kinds of comments to put inside of code chunks, e.g. 
+
+```{r}
+rm(list = ls()) #clear R's brain
+```
+
+vs the kind of narration you provide outside of code chunks to represent your thinking/what you are trying to achieve with your code, etc.
