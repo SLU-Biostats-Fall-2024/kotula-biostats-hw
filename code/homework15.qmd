@@ -3,8 +3,8 @@ title: "homework15"
 format: html
 ---
 
-This quarto document contains biostats homework 15. I worked through GSWR chapter 3 and reviewed some common DPLYR functions.
-##Set Up
+This quarto document contains biostats homework 15. I worked through GSWR chapter 3 and reviewed some common DPLYR functions. ##Set Up
+
 ```{r}
 rm(list = ls())
 library(tidyverse)
@@ -12,7 +12,8 @@ library(here)
 library(dplyr)
 ```
 
-##read in the compensation dataset
+## read in the compensation dataset
+
 ```{r}
 compensation <- read.csv(here("data", "compensation.csv"))
 
@@ -20,7 +21,8 @@ compensation <- read.csv(here("data", "compensation.csv"))
 summary(compensation)
 ```
 
-##Using dplyr functions
+## Using dplyr functions
+
 ```{r}
 #using select
 select(compensation, Fruit)
@@ -40,6 +42,7 @@ slice(compensation, c(2, 3, 10))
 ```
 
 ##more dplyr functions in a different code chunk to avoid mega chunk
+
 ```{r}
 #using filter and with
 with(compensation, Fruit > 80)
@@ -52,6 +55,7 @@ filter(compensation, Fruit > 80 | Fruit < 20)
 ```
 
 ##to use the datasets made with dplyr functions, assign them to a new variable name
+
 ```{r}
 #make a new dataset with the lowest and highest fruit producing trees
 lo_hi_fruit <- filter(compensation, Fruit > 80 | Fruit < 20) 
@@ -61,6 +65,7 @@ lo_hi_fruit
 ```
 
 ##Transforming Data
+
 ```{r}
 #mutate() makes new varaibles
 
@@ -73,6 +78,7 @@ head(compensation)
 ```
 
 ##Sorting data
+
 ```{r}
 #arrange orders rows by a variable
 arrange(compensation, Fruit)
@@ -81,6 +87,7 @@ arrange(compensation, Fruit)
 ```
 
 #summary + tips / piping
+
 ```{r}
 #you can use two dplyr functions at the same time
 select(filter(compensation, Fruit > 80), Root)
@@ -91,7 +98,8 @@ compensation |>
   select(Root)
 ```
 
-##Summary statistics with groups of data 
+##Summary statistics with groups of data
+
 ```{r}
 #use group_by() and summarise() to do summary statistics on groups of data
 
@@ -114,4 +122,3 @@ compensation |>
   summarise(meanFruit = mean(Fruit),
             sdFruit = sd(Fruit))
 ```
-
