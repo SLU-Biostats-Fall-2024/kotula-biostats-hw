@@ -1,0 +1,103 @@
+---
+title: "homework-16"
+format: html
+---
+
+#Set up
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+```
+
+Read in the donnerville dataset
+
+```{r}
+cover <- read.csv(here("data", "donnerville_percent_cover.csv"))
+
+#here I view the dataset 2 ways
+glimpse(cover)
+head(cover)
+```
+
+#changing variable types Site, plot type and cover type should be factors
+
+```{r}
+#making the Site variable into a factor
+cover$Site <- as.factor(cover$Site)
+levels(cover$Site) #levels are inconsistent and must be fixed
+
+fix <- which(cover$Site %in% c("DONNERVILLE - 1", 
+                               "donnerville 1",
+                               "Donnerville 1"))
+
+
+cover$Site[fix] <- "Donnerville 1"
+cover$Site <- factor(cover$Site)
+
+fix2 <- which(cover$Site %in% c("donnerville 2",
+                                "Donnerville 2"))
+
+cover$Site[fix2] <- "Donnerville 2"
+cover$Site <- factor(cover$Site)
+
+fix3 <- which(cover$Site %in% c("Donnerville 3",
+                                "donnerville-3"))
+
+cover$Site[fix3] <- "Donnerville 3"
+cover$Site <- factor(cover$Site)
+
+levels(cover$Site) #now there are 3 levels of Site
+```
+
+repeating the process for plot type and cover type
+
+```{r}
+cover$Plot.type <- as.factor(cover$Plot.type)
+levels(cover$Plot.type) #Plot.type already has two levels so it doesn't need fixed
+
+cover$cover_type <- as.factor(cover$cover_type)
+levels(cover$cover_type) #does need fixed
+
+fix4 <- which(cover$cover_type %in% c("bare",
+                                      "Bare"))
+
+cover$cover_type[fix4] <- "Bare"
+cover$cover_type <- factor(cover$cover_type)
+
+fix5 <- which(cover$cover_type %in% c("bryophtes",
+                                      "Bryophytes"))
+
+cover$cover_type[fix5] <- "Bryophytes"
+cover$cover_type <- factor(cover$cover_type)
+
+fix6 <- which(cover$cover_type %in% c("vasc ",
+                                      "Vascular"))
+
+cover$cover_type[fix6] <- "Vascular"
+cover$cover_type <- factor(cover$cover_type)
+
+levels(cover$cover_type)
+```
+
+#make date into a date variable
+```{r}
+cover$Date <- dmy(cover$Date)
+```
+
+#Determine the average percent cover by cover type (bare, bryophytes, vascular plants) for Donnerville 1.
+```{r}
+cover |> 
+  filter(Site == "Donnerville 1") |>
+  group_by(cover_type) |>
+  summarise(mean(Percent))
+```
+
+#Determine the average percent vascular plant cover across all sites.
+```{r}
+cover |>
+  filter(cover_type == "Vascular") |>
+  summarise(mean(Percent))
+```
+
