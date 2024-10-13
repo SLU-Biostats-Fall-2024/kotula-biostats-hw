@@ -1,0 +1,64 @@
+---
+title: "homework-18"
+format: html
+---
+
+# GSR Chapter 4
+
+set up quarto document
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+```
+
+read in the compensation dataset
+
+```{r}
+compensation <- read.csv(here("data", "compensation.csv"))
+```
+
+## Using ggplot2
+
+give dataframe to the ggplot function, variables to the aesthetic function (`aes()`)
+
+Added arguments and features to the plot as they were presented in the textbook reading
+```{r}
+ggplot(compensation, aes(x = Root, y = Fruit, color = Grazing)) + 
+  geom_point(size = 5) +
+  xlab("Root Biomass") +
+  ylab("Fruit Production") +
+  theme_bw() #removes grey background
+
+```
+
+can also distinguish levels with a shape argument
+```{r}
+ggplot(compensation, aes(x = Root, y = Fruit, shape = Grazing)) + 
+  geom_point(size = 5) +
+  xlab("Root Biomass") +
+  ylab("Fruit Production") +
+  theme_bw() #removes grey background
+```
+
+## box and whisker plots
+
+use `geom_boxplot()`
+```{r}
+ggplot(compensation, aes(x = Grazing, y = Fruit)) + geom_boxplot() +
+xlab("Grazing treatment") +
+ylab("Fruit Production") +
+theme_bw()
+
+```
+
+can add raw data to the boxplot with `geom_point`
+also adds a few more customization options (alpha = transparency)
+```{r}
+ggplot(compensation, aes(x = Grazing, y = Fruit)) + geom_boxplot() +
+geom_point(size = 4, colour = 'lightgrey', alpha = 0.5) + xlab("Grazing treatment") +
+ylab("Fruit Production") + theme_bw()
+
+```
+
