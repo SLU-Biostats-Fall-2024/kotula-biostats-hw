@@ -62,3 +62,31 @@ ylab("Fruit Production") + theme_bw()
 
 ```
 
+Do plants with wider root diameters at the start of the experiment produce more fruit?
+  Plants with wider root diameters appear to produce more fruit.
+
+Do grazed or ungrazed plants produce more fruit?
+  Grazed plants produce more fruit.
+  
+## making histograms
+
+use `geom_histogram()` to make a histogram in ggplot2. 
+use the bins and bins_width arguements to adjust the width of bars
+```{r}
+ggplot(compensation, aes(x = Fruit)) + 
+  geom_histogram(bins = 10)
+
+```
+use the bins and bins_width arguements to adjust the width of bars
+
+## facetting
+ggplot2 uses facetting to create lattice graphs
+```{r}
+ggplot(compensation, aes(x = Fruit)) + geom_histogram(binwidth = 15) + facet_wrap(~Grazing)
+```
+
+use `ggsave()` to download plots
+```{r}
+ggsave("ThatCoolHistogramOfFruit.png")
+```
+
