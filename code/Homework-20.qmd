@@ -32,7 +32,7 @@ ggplot(soil, aes(x = SOM_percent))+
 
 How would you describe the mean_SOM data based on viewing the histogram? Write your answer below:
 
-The mean_SOM seems like it is relatively low becuase the data is heavily skewed to the left.
+The mean_SOM seems like it is relatively low becuase the data is heavily skewed to the right.
 
 4.  Create a new dataframe called SOM by calculating for each forest the mean soil organic matter and the standard deviation of soil organic matter. Make sure to name variables you create "mean_SOM" and "sd_SOM" so that the next code chunk I give you works.
 
