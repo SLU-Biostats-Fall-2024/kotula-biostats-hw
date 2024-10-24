@@ -1,0 +1,101 @@
+---
+title: "Homework-21"
+format: html
+---
+
+### Set Up
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+```
+
+### Read in Datasets
+
+```{r}
+lady <- read.csv(here("data","ladybirds.csv"))
+glimpse(lady)
+
+ozone <- read.csv(here("data", "ozone.csv"))
+glimpse(ozone)
+```
+
+### Make variables factors
+
+```{r}
+lady$Habitat <- as.factor(lady$Habitat)
+levels(lady$Habitat)
+
+lady$Site <- as.factor(lady$Site)
+levels(lady$Site)
+
+lady$colour <- as.factor(lady$colour)
+levels(lady$colour)
+
+ozone$Garden.location <- as.factor(ozone$Garden.location)
+levels(ozone$Garden.location)
+
+ozone$Garden.ID <- as.factor(ozone$Garden.ID)
+levels(ozone$Garden.ID)
+```
+
+### 5.2 X^2 contingency table analysis
+
+5.2.2 Organizing data for plotting and analysis
+```{r}
+totals <- lady %>%
+group_by(Habitat, colour) %>%
+summarise(total.number = sum(number)) 
+
+ggplot(totals, aes(x = Habitat, 
+                   y = total.number, 
+                   fill = colour)) +
+geom_bar(stat = 'identity', position = 'dodge')
+
+```
+
+colors in the default chart aren't great, change manually:
+```{r}
+ggplot(totals, aes(x = Habitat, y = total.number, fill = colour)) +
+geom_bar(stat = 'identity', position = 'dodge') + scale_fill_manual(values = c(black = "black", red = "red"))
+```
+
+making the X^2 test
+```{r}
+#first make a matrix
+lady.mat <- xtabs(number ~ Habitat + colour, data = lady)
+lady.mat
+
+#run matrix through the test
+chisq.test(lady.mat)
+
+lady.chi <- chisq.test(lady.mat) 
+names(lady.chi)
+
+```
+
+### 5.3 Two-sample t-test
+a comparison of the means of two groups of numeric values.
+
+plotting data
+```{r}
+ggplot(ozone, aes(x = Ozone)) + 
+  geom_histogram(binwidth = 10) + 
+  facet_wrap(~ Garden.location, ncol = 1) + theme_bw()
+```
+there may be a difference in the means of the two groups based off of the two graphs
+
+```{r}
+# Do a t.test now....
+t.test(Ozone ~ Garden.location, data = ozone)
+#returns a Welch t test, doesn't test for equality of variance
+
+#t-test with test for equality of variance
+var.test(Ozone ~ Garden.location, data = ozone)
+
+```
+in words: do ozone levels vary as a result of garden location
+
+p value is low, indicates difference in means
+confidence interval also doesn't include 0, indicating that it is very unlikely that the differenc in means in 0
