@@ -53,9 +53,18 @@ covid_counts <- vax |>
 Now make a bar plot that shows the count data using the `covid_counts` dataframe you just created. Put survival on the x-axis and fill the bars based on vaccination status. Color vaccinated patients in dark green and unvaccinated patients in black. Remove the gray background.
 
 ```{r}
+#the wrong graph I made during the hw
 ggplot(data = covid_counts, aes(x = Survival, y = Count,
                                 fill = Vaccination_status))+
   geom_col()+
+  scale_fill_manual(values = c(`Fully vaccinated` = "green",
+                               `Not vaccinated` = "black"))+
+  theme_bw()
+
+#the graph from class
+ggplot(data = covid_counts, aes(x = Survival, y = Count,
+                                fill = Vaccination_status))+
+  geom_bar(stat = "identity", position = "dodge") +
   scale_fill_manual(values = c(`Fully vaccinated` = "green",
                                `Not vaccinated` = "black"))+
   theme_bw()
