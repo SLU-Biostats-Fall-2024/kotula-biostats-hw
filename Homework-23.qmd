@@ -1,0 +1,100 @@
+---
+title: "homework-23"
+format: html
+---
+
+### Set Up
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+```
+
+### 5.4 Intro linear models
+
+-   General linear models are a class of model that include regression, multiple regression, ANOVA, and ANCOVA.
+
+-   Use least squares framework for estimation and share a common set of assumptions
+
+-   `lm()` function fits linear models
+
+### 5.5 Simple linear regression
+
+read in the data
+
+```{r}
+plant_gr <- read.csv(here("data", "plant.growth.rate.csv"))
+glimpse(plant_gr)
+```
+
+plot the data
+
+```{r}
+ggplot(plant_gr, aes(x = soil.moisture.content,
+                     y = plant.growth.rate))+
+  geom_point()+
+  ylab("Plant Growth Rate (mm/week)")+
+  theme_bw()
+  
+```
+
+By observing the plot you can estimate the slope and intercept before doing statistical analysis.
+
+-   slope \~ 15
+
+-   intercept is somewhere bewteen 15 and 20 mm/week
+
+Now use `lm()` to fit a model
+
+```{r}
+model_pgr <- lm(plant.growth.rate ~ soil.moisture.content,
+                data = plant_gr)
+```
+
+To check the assumptions of a linear model, use the `autoplot()` function from the ggfortify package.
+
+```{r}
+#install.packages("ggfortify")
+library(ggfortify)
+
+autoplot(model_pgr, smooth.color = NA)
+```
+
+`autoplot()` plots
+
+1.  Residuals vs Fitted - tells us if a line is appropriate to fit the model, blue line should be as close to the dotted line as possible.
+
+2.  Normal Q-Q - evaluates assumption of normality residual plot should follow the dotted line.
+
+3.  Scale-Location - evaluates assumption of constant variance.
+
+4.  Residuals vs Leverage - evaluates leverage, detects data points that may influence the dataset more than others
+
+Interpretation of the linear model
+
+```{r}
+#anova function returns a sum of squares table, it does not perform an ANOVA that compares means
+anova(model_pgr)
+
+summary(model_pgr)
+```
+
+Large F-value means that error variance is small relative to variance caused by the explanatory variable.
+
+Very small p-value means the pattern we observe isn't a chance result.
+
+Intercept is 19.348
+
+Slope is 12.750
+
+### Add a regression line to a plot
+
+```{r}
+ggplot(plant_gr, aes(x = soil.moisture.content,
+                     y = plant.growth.rate))+
+  geom_point()+
+  geom_smooth(method = 'lm')+ #adds regression line
+  ylab("Plant Growth Rate (mm/week)")+
+  theme_bw()
+```
