@@ -1,0 +1,99 @@
+---
+title: "Homework 24"
+format: html
+editor: visual
+---
+
+## Overview
+
+For your homework you will implement a data analysis using a dataset on crab growth measurements.
+
+Set things up (hint: there is a new package to add with `library()`)
+
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+library(ggfortify)
+```
+
+## The data
+
+Let's pull in some data appropriate biologists: crab measurements. This dataset includes measurements of farmed crabs.
+
+```{r}
+crabs <- read.csv(here("data", "CrabAgePrediction (1).csv"))
+glimpse(crabs)
+```
+
+One of the variables is categorical - let's fix that in the data.
+
+```{r}
+crabs$Sex <- as.factor(crabs$Sex)
+```
+
+## Question
+
+Is there a relationship between height and weight in female crabs?
+
+1.  Extract the data for just female crabs.
+
+    ```{r}
+    f_crabs <- crabs |>
+      filter(Sex == "F")
+
+    glimpse(f_crabs)
+    ```
+
+2.  Examine the response and predictor variables and use the flow chart from class to decide the appropriate statistical analysis (choose from: chi-square, 2-sample t-test or linear regression). Explain your answer here:
+
+    The response and predictor variables are both continuous ratio data so you should use a linear regression model.
+
+3.  Work through the data analysis **following all of the steps provided in chapter 5 of your book**. You may use class notes or homework keys as a guide.
+
+    ### Plot the data
+
+    ```{r}
+    ggplot(f_crabs, aes(x = Height, y = Weight))+
+      geom_point()
+        
+    ```
+
+    There is one outlier that makes it very hard to estimate the slope or intercept
+
+    ### Fit a model and check assumptions
+
+    ```{r}
+    f_crabs_model <- lm(Weight ~ Height, data = f_crabs)
+
+    autoplot(f_crabs_model, smooth.color = NA)
+    ```
+
+The autoplot plots show a lot of problems with the using a linear model to represent this data.
+
+The residuals vs fitted plot does not follow the dashed line, so a line may not be appropriate to fit the model.
+
+The Normal Q-Q plot almost follows the dotted line signifying a normal distribution but one outlier is very far from the dotted line.
+
+The scale-location plot is also pretty weird and means there may not be constant variance.
+
+The residuals vs leverage plot shows that one point has a lot of leverage on the data.
+
+### Interpretation of the linear model
+
+```{r}
+anova(f_crabs_model)
+summary(f_crabs_model)
+```
+
+There seems to be a significant relationship between the height and weight of female crabs (F = 613.57, DF = 1, P \< 0.05).
+
+### add a regression line to the plot
+
+```{r}
+ggplot(f_crabs, aes(x = Height, y = Weight))+
+  geom_point()+
+  geom_smooth(method = 'lm')
+```
+
+regression line enforces the positive relationship between height and weight in female crabs.
