@@ -61,6 +61,8 @@ Is there a relationship between height and weight in female crabs?
 
     There is one outlier that makes it very hard to estimate the slope or intercept
 
+    what do i think relationship might be (don't forget on ps3)
+
     ### Fit a model and check assumptions
 
     ```{r}
