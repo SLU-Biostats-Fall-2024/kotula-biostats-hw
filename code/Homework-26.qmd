@@ -1,0 +1,63 @@
+---
+title: "Homework-26"
+format: html
+---
+
+### Set up
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here )
+library(ggfortify)
+library(multcomp)
+```
+
+### Read in data and fix variables
+```{r}
+peas <- read.csv(here("data", "s_r_pea_sections.csv"))
+glimpse(peas)
+
+peas$Treatment <- as.factor(peas$Treatment)
+```
+
+###Plot the data 
+Treatment is the explanatory variable, pea_section_length_ou is the response variable.
+
+Treatment is categorical, pea_section_length_ou is continuous, so you should do one-way ANOVA.
+
+first, the plot
+```{r}
+ggplot(peas, aes(Treatment, pea_section_length_ou))+
+  geom_boxplot()+
+  geom_jitter(width = 0.1)+
+  theme_bw()+
+  coord_flip()
+```
+The section length appears to be considerably lower in the experimental treatment than in the control. The sucrose treatment seems different from the other three treatments, which have realtively similar means.
+
+### build the model
+```{r}
+p_model <- lm(pea_section_length_ou ~ Treatment, data = peas)
+```
+
+### check assumptions
+```{r}
+autoplot(p_model)
+```
+the model more or less meets the assumptions.
+
+###interpret the model
+```{r}
+anova(p_model)
+```
+A high F value and very low p-value means we reject the null hypothesis that there is no difffernce between the treatments.
+
+### Tukey's HSD test
+```{r}
+ph_peas <- glht(p_model, linfct = mcp(Treatment = "Tukey"))
+summary(ph_peas)
+
+cld(ph_peas)
+```
+
+Based on the results of the Tukey's HSD test, there are three distinct groups in the data. The control group, and the 2 percent sucrose group are both distinct groups on their own and a third group is formed by the remaining 3 treatments which are not statistically different from eachother but are also not the same as the other 2 groups.

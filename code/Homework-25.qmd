@@ -4,6 +4,7 @@ format: html
 ---
 
 ### Set up
+
 ```{r}
 rm(list = ls())
 library(tidyverse)
@@ -12,9 +13,11 @@ library(here)
 ```
 
 ### Analysis of variance:the one-way ANOVA
+
 in ANOVA, the explanatory variable is a factor while the response is a continuous variable.
 
 first read in the data and make appropriate variables factors
+
 ```{r}
 daphnia <- read.csv(here("data", "Daphniagrowth.csv"))
 glimpse(daphnia)
@@ -22,9 +25,10 @@ glimpse(daphnia)
 daphnia$parasite <- as.factor(daphnia$parasite)
 ```
 
-use Plot -> Model -> Check Assumptions -> Interpret -> Plot Again workflow
+use Plot -\> Model -\> Check Assumptions -\> Interpret -\> Plot Again workflow
 
 ### 1. plot the data
+
 ```{r}
 ggplot(daphnia, aes(x = parasite, y = growth.rate)) + 
 geom_boxplot() +
@@ -32,6 +36,7 @@ theme_bw()
 ```
 
 notice how labels are clumped together, flip coordinates to fix this
+
 ```{r}
 ggplot(daphnia, aes(x = parasite, y = growth.rate)) + geom_boxplot() +
 theme_bw() +
@@ -43,6 +48,7 @@ There seems to be a lower growth rate in parasite treatments than control treatm
 ### construct the ANOVA and check assumptions
 
 has the same structure as the linear regression model, we know the explanatory variable is categorical
+
 ```{r}
 model_grow <- lm(growth.rate ~ parasite, data = daphnia)
 
@@ -56,14 +62,19 @@ assumptions are met, plots look ok
 ### Interpret the model
 
 use `anova()` function
+
 ```{r}
 anova(model_grow)
 ```
+
 null hypothesis = no difference between the groups
 
 large F-value and low p-value allows us to reject the null hypothesis.
 
+**F value will be large when variance between groups is larger than variance within groups.**
+
 use `summary()` function to see differences between groups
+
 ```{r}
 summary(model_grow) #intercept is the first level alphabetically
 ```
@@ -71,9 +82,11 @@ summary(model_grow) #intercept is the first level alphabetically
 in the summary table, the numbers associated with each parasite are differences between growth rates associated with that parasite and the control. This is why they are all negative.
 
 you can get the means for treatment groups using dplyr functions and then calculate the contrasts manually
+
 ```{r}
 sumDat<-daphnia %>% 
 group_by(parasite) %>%
 summarise(meanGR = mean(growth.rate))
 ```
+
 control - parasite level to get contrast
