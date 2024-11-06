@@ -35,6 +35,8 @@ ggplot(peas, aes(Treatment, pea_section_length_ou))+
 ```
 The section length appears to be considerably lower in the experimental treatment than in the control. The sucrose treatment seems different from the other three treatments, which have realtively similar means.
 
+Guess units next time!!
+
 ### build the model
 ```{r}
 p_model <- lm(pea_section_length_ou ~ Treatment, data = peas)
@@ -49,8 +51,10 @@ the model more or less meets the assumptions.
 ###interpret the model
 ```{r}
 anova(p_model)
+
+summary(p_model)
 ```
-A high F value and very low p-value means we reject the null hypothesis that there is no difffernce between the treatments.
+A high F value and very low p-value means we reject the null hypothesis that there is no difference between the treatments.
 
 ### Tukey's HSD test
 ```{r}

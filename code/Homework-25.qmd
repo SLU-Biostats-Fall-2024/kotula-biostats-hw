@@ -45,6 +45,7 @@ coord_flip()
 
 There seems to be a lower growth rate in parasite treatments than control treatments. P. ramosa has a mean growth rate around 0.55, M. bicuspidata has a mean growth rate of around 0.7, P. perplexa has a mean growth rate of around 1.1, and the control has a mean growth rate of around 1.5.
 
+degrees of freedom: n - parameters/levels so 40 - 4 = 36
 ### construct the ANOVA and check assumptions
 
 has the same structure as the linear regression model, we know the explanatory variable is categorical
@@ -84,9 +85,20 @@ in the summary table, the numbers associated with each parasite are differences 
 you can get the means for treatment groups using dplyr functions and then calculate the contrasts manually
 
 ```{r}
-sumDat<-daphnia %>% 
-group_by(parasite) %>%
+sumDat<-daphnia |>
+group_by(parasite) |>
 summarise(meanGR = mean(growth.rate))
 ```
 
 control - parasite level to get contrast
+
+### plot again
+```{r}
+ggplot(daphnia, aes(parasite, growth.rate, color = parasite))+
+  geom_point(size = 3)+
+  geom_point(data = sumDat, aes(parasite, meanGR, fill = parasite),
+             shape = 23, size = 5)+
+  coord_flip()+
+  theme_bw()
+```
+
