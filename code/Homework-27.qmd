@@ -170,7 +170,7 @@ Why are there 33 DF for the Residuals?
 
 How would you write a results statement?
 
-There is no association between plant growth rate and fertilizer treatment (F=2.7906, df=2, p=0.759).
+There is no association between plant growth rate and fertilizer treatment (F=2.7906, df=2, p=0.759). (ENDS ANALYSIS, FAIL TO REJECT NULL HYPOTHESIS)
 
 ```{r}
 summary(grow.mod.no.NA)
@@ -180,11 +180,11 @@ Practice your interpretation:
 
 Does adding 1 dose of fertilizer change the growth rate significantly from the Control?
 
-Adding one dose of fertilizer treatment did not signifcantly change the plant growth rate (t = 1.624, p = 0.1139).
+Adding one dose of fertilizer treatment did not significantly change the plant growth rate (t = 1.624, p = 0.1139).
 
-Does adding 2 doses of fertilizer change the growth rate signficantly from the Control?
+Does adding 2 doses of fertilizer change the growth rate significantly from the Control?
 
-Adding 2 doses of fertilizer does significanly change the growth rate of these plants (t = 2.232, p = 0.0325).
+Adding 2 doses of fertilizer does significantly change the growth rate of these plants (t = 2.232, p = 0.0325).
 
 We won't worry about re-plotting our data right now.
 
@@ -232,7 +232,7 @@ anova(mass.mod)
 
 Why is there 1 degree of freedom for Growth_rate_mm and why are there 34 degrees of freedom for the Residuals?
 
-1 degree of freedom for number of predictors (2) minus one.
+1 degree of freedom for 1 predictor variable
 
 34 degrees of freedom for number of used observations - 2.
 
@@ -243,6 +243,8 @@ summary(mass.mod)
 ```
 
 There is a week positve association between dry mass and growth rate (r\^2 = 0.2188).
+
+r-squared - percent of variability in x variable that can be explained by y variable
 
 ### Second attempt: Limited data set with only complete cases (use `df_No_NA`)
 
