@@ -1,0 +1,158 @@
+---
+title: "Homework-28"
+format: html
+---
+
+#### Set Up
+```{r}
+rm(list = ls())
+library(tidyverse)
+library(here)
+library(ggfortify)
+library(gridExtra)
+```
+
+#### GSR Chapter 8
+This chapter is about learning more about ggplot2. I will follow along with this chapter about making better plots with ggplot2.
+
+#### Read in data
+This chapter uses the compensation dataset from earlier in the textbook.
+```{r}
+compensation <- read.csv(here("data", "compensation.csv"))
+```
+
+#### Making base plots
+Start by creating basic plots. You can assign plots to variable names to save them for later and easily add features.
+```{r}
+# BASE scatterplot
+eg_scatter <-
+ggplot(data = compensation, aes(x = Root, y = Fruit))+ 
+  geom_point()
+# BASE box-and-whiskers plot
+eg_box <-
+ggplot(data = compensation, aes(x = Grazing, y = Fruit))+ 
+  geom_boxplot()
+
+# Add a theme to a saved figure
+eg_scatter+theme_bw()
+```
+
+The gridExtra package that we downloaded for this chapter allows you to put multiple plots on the same page.
+```{r}
+grid.arrange(eg_scatter, eg_box, nrow = 1)
+#can also use ncol to stack plots
+```
+
+#### Customizing other aspects of plots
+
+There are several things you may want to customize including:
+  • axis labels, with maths symbols, rotation, and colours; 
+  • axis ranges and tick mark locations;
+  • the grey background and the gridlines;
+  • the boxes and title in the key;
+  • text annotation inside the plot.
+
+Use `theme()` and `scale()` functions to alter aspects of your plots.
+`theme_...` is for attributes not directly tied to the `aes()` function and 
+`scale_...` is for attributes that are tied to the `aes()` function.
+
+#### Axis Labels, Axis Limits, and Annotation
+You can use `xlab()` and `ylab()` to label the x and y axis OR you can combine them with the `labs()` function. The same goes for title, you can use the `ggtitle()` function, or you can include it in `labs()`
+```{r}
+#using multiple labeling functions
+eg_scatter + 
+  xlab("Root Biomass") + 
+  ylab("Fruit Production") + 
+  ggtitle("My title")
+
+#using the labs function
+eg_scatter + 
+  labs(title = "My useless title",
+       x = "Root Biomass",
+       y = "Fruit Production")
+```
+
+You can use `xlim()` and `ylim()` to change the scale of functions.
+```{r}
+eg_scatter + xlim(0, 20) + ylim(0, 140)
+```
+
+The `annotate()` function allows you to put custom text inside of a figure using the coordinate scale of said figure.
+```{r}
+eg_scatter +
+annotate("text", x = c(6,8), 
+         y = c(105, 25),
+label = c("Text up here...",
+          "...and text down here"))
+
+```
+
+#### Scales
+Scale functions are tied to the vairbale being plotted.
+
+We can change the default scaling of graphs.
+```{r}
+eg_scatter + scale_x_continuous(limits = c(4, 11), breaks = 4:11)
+```
+limits changes the range of the x axis while breaks changes the number of tick marks and the distance between them.
+
+You can also scale the color of our plots.
+```{r}
+ggplot(data = compensation, aes(x = Root, y = Fruit, colour = Grazing)) + geom_point() +
+scale_colour_manual(values = c(Grazed = "brown", 
+                               Ungrazed = "green"))
+# makes the grazed points brown and the ungrazed points green
+```
+
+You can use the trans argument when scaling a variable to apply a transformation to the axis.
+```{r}
+eg_box +
+scale_y_continuous(breaks = seq(from = 10, to = 150, by = 20),
+                     trans = "log10")
+#seq() is used to make a vector of breakpoints with a specified gap between.
+```
+
+#### Themes
+There are several custom preset themes that you can use to change the theme of your plot like the `theme_bw()` that we have been using.
+```{r}
+eg_box +
+  theme_minimal()
+```
+
+you can also adjust the aspects of the theme manually. here's code for a graph without the grey background and minor gridlines that keeps the major gridlines in light blue.
+```{r}
+eg_scatter + 
+  theme( panel.background = 
+           element_rect(fill = NA, 
+                        colour = "black"), 
+         panel.grid.minor = element_blank(),
+         panel.grid.major = element_line(colour = "lightblue")
+)
+```
+
+We can also manually change the color, size and angle of text.
+```{r}
+eg_box + theme(
+axis.title.x = element_text(colour = "cornflowerblue", size =rel(2)),
+axis.text.x = element_text(angle = 45, size = 13, vjust = 0.5))
+```
+
+Finally we can change the labels of the levels on boxplots
+```{r}
+eg_box + scale_x_discrete(limits = c("Ungrazed", "Grazed"), 
+                          labels = c("Control", "Grazed"))
+```
+
+##### Legends and Keys
+You can use some of the earlier customization options on the key.
+```{r}
+ggplot(compensation, aes(x = Root, y = Fruit, colour = Grazing)) + geom_point() +
+theme(legend.key = element_rect(fill = NA))
+```
+
+`element_blank()` can completely remove the key.
+```{r}
+ggplot(compensation, aes(x = Root, y = Fruit, colour = Grazing)) + geom_point() +
+theme(legend.position = "none")
+```
+
